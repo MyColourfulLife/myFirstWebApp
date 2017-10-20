@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/markdown.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    
+    <div id="markdowncontent">
+      
+    </div>
+
+  </body>
+</html>
+
+<script>
+var mdcontent = ` "<%- content %>" `;
+//去除前后的双引号 
+mdcontent = mdcontent.substring(2,mdcontent.length-2);
+var $ = function (id) { return document.getElementById(id); };
+$('markdowncontent').innerHTML = markdown.toHTML(mdcontent);
+</script>
