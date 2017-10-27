@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://192.168.99.100:32799/articlesdb',{
+mongoose.connect('mongodb://localhost:32768/articlesdb',{
 useMongoClient:true
 },err=>{
     if (err) {
