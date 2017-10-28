@@ -1,36 +1,65 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
-    <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
-  </head>
-  <body>
-      <h1><%= title %></h1>
-    <div id="app">
-      <div v-for="item in postLists"> 
-        <a v-bind:href="item.url">{{item.title}}</a>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
+ 
+</head>
+
+<body>
+  <h1>
+    <%= title %>
+  </h1>
+  <div id="app"  class="container">
+    <!-- Split button -->
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-default">操作</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="/posts/create">新建</a>
+          </li>
+        </ul>
       </div>
-    </div>
-  </body>
+      <div class="col-md-8 col-md-offset-2">
+          <ul class="list-group" v-for="item in postLists">
+              <li class="list-group-item">
+                <a v-bind:href="item.url">{{ item.title }}</a>
+              </li>
+            </ul>
+      </div>
+
+
+  </div>
+</body>
+
 </html>
 
 
 <script>
   new Vue({
-    el:'#app',
-    data:{
-      postLists:[]
+    el: '#app',
+    data: {
+      postLists: []
     },
-    mounted:function(){
-      axios.get('/api/posts').then(res=>{
+    mounted: function () {
+      axios.get('/api/posts').then(res => {
         this.postLists = res.data.postLists;
-        this.postLists.forEach(function(element) {
+        this.postLists.forEach(function (element) {
           element.url = `/posts/show?id=${element._id}`
         });
-      }).catch(err=>{
+      }).catch(err => {
         alert(err.message);
       });
     }
